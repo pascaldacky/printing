@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Receipts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            text-align: center;
+        }
+        a.button {
+            display: inline-block;
+            padding: 10px 15px;
+            background: black;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 15px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            padding: 8px;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Receipt Dashboard</h2>
+
+<a class="button" href="/create_test_receipt">Create Test Receipt</a>
+
+<ul>
+    {% for receipt in receipts %}
+        <li>
+            Receipt #{{ receipt.receipt_no }} —
+            <a href="/receipt/{{ receipt.id }}">View</a>
+        </li>
+    {% else %}
+        <li>No receipts yet.</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

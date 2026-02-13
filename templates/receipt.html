@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Receipt {{ receipt.receipt_no }}</title>
+    <style>
+        body {
+            width: 300px;        /* Thermal printer width */
+            margin: 0 auto;      /* Centered */
+            font-family: monospace;
+        }
+        h2, h3 { text-align: center; margin: 2px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 5px;}
+        td { padding: 2px 0; }
+        .total { font-weight: bold; }
+        .center { text-align: center; }
+        .logo { width: 100px; display: block; margin: 5px auto; }
+        button { width: 100%; margin-top: 10px; padding: 8px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <img src="{{ url_for('static', filename='tra.webp') }}" class="logo">
+    <h2 class="center">My Shop</h2>
+    <h3 class="center">Receipt #{{ receipt.receipt_no }}</h3>
+
+    <table>
+        {% for item in receipt.items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.quantity }} x {{ "%.2f"|format(item.price) }}</td>
+        </tr>
+        {% endfor %}
+        <tr><td colspan="2">-------------------------</td></tr>
+        <tr><td>Subtotal</td><td>{{ "%.2f"|format(receipt.subtotal) }}</td></tr>
+        <tr><td>VAT</td><td>{{ "%.2f"|format(receipt.vat) }}</td></tr>
+        <tr class="total"><td>Total</td><td>{{ "%.2f"|format(receipt.total) }}</td></tr>
+    </table>
+
+    <button onclick="window.print()">Print Receipt</button>
+</body>
+</html>
